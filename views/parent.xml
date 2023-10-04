@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_parent_tree" model="ir.ui.view">
+        <field name="name">view.parent.tree</field>
+        <field name="model">parent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="relative"/>
+                <field name="student_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_parent_form" model="ir.ui.view">
+        <field name="name">view.parent.form</field>
+        <field name="model">parent</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="relative"/>
+                            <field name="student_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_parent_search" model="ir.ui.view">
+        <field name="name">view.parent.search</field>
+        <field name="model">parent</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="relative"/>
+                <field name="student_id"/>
+                <separator/>
+                <filter name="filter_father" string="father" domain="[('relative','=','father')]"/>
+                <filter name="filter_mother" string="mother" domain="[('relative','=','mother')]"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Relative" name="relative" context="{'group_by':'relative'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_parent_kanban" model="ir.ui.view">
+        <field name="name">view.parent.kanban</field>
+        <field name="model">parent</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="relative"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div t-attf-class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <field name="phone"/>
+                                </div>
+                                <div>
+                                    <field name="email"/>
+                                </div>
+                                <div>
+                                    <field name="relative"/>
+                                </div>
+                                <div>
+                                    <field name="student_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="parent_action" model="ir.actions.act_window">
+        <field name="name">Parent</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">parent</field>
+        <field name="view_mode">tree,kanban,form,search</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new parent!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_Parent"
+              name="Parent"
+              parent="menu_School"
+              action="parent_action"
+              sequence="5"/>
+
+</odoo>
